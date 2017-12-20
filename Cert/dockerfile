@@ -1,0 +1,25 @@
+FROM microsoft/aspnet:4.6.2
+SHELL ["powershell"]
+
+#----------------Copy project----------------
+WORKDIR /inetpub/wwwroot
+COPY . .
+EXPOSE 80
+
+#----------------Install debugger----------------
+EXPOSE 4020 4021
+RUN Invoke-WebRequest -OutFile c:\rtools_setup_x64.exe -Uri http://download.microsoft.com/download/1/2/2/1225c23d-3599-48c9-a314-f7d631f43241/rtools_setup_x64.exe;
+RUN & 'c:\rtools_setup_x64.exe' /install /quiet
+
+
+#docker build -t jony/app --build-arg site_root=/ .
+
+
+#docker build -t ln/la-app .
+#docker run --name la-app -d -p 80:80 ln/la-app
+#docker inspect -f "{{ .NetworkSettings.Networks.nat.IPAddress }}" la-app
+
+# 1. research how to access from dockerip:80
+# 2. how to debug the website insdide the docker
+#   docker exec ssh la-app powershell
+#      curl http://localhost

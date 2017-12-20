@@ -1,0 +1,15 @@
+FROM jony/base
+SHELL ["powershell"]
+
+WORKDIR /inetpub/wwwroot
+COPY ./site/ .
+
+EXPOSE 80
+
+CMD & 'C:\Program Files\Microsoft Visual Studio 15.0\Common7\IDE\Remote Debugger\x64\msvsmon.exe' /nostatus /silent /noauth /anyuser /nosecuritywarn /nofirewallwarn /noclrwarn /port 4022
+
+#docker build -t jony/helloworld .
+#docker run --name helloworld -d -p 80:80 -p 4020:4020 -p 4022:4022 -p 8172:8172 -v c:\shared:c:\shared jony/helloworld
+#docker inspect -f "{{ .NetworkSettings.Networks.nat.IPAddress }}" helloworld
+
+

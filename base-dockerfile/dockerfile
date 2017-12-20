@@ -1,0 +1,29 @@
+FROM microsoft/aspnet:4.6.2
+SHELL ["powershell"]
+
+# install the remote debugger
+RUN Install-WindowsFeature -Name Web-Mgmt-Service
+
+RUN New-ItemProperty -Path HKLM:\SOFTWARE\Microsoft\WebManagement\Server -Name EnableRemoteManagement -Value 1 -Force
+
+RUN  Get-Service -Name WMSVC
+
+RUN  Set-Service WMSVC -startuptype "Automatic"
+    
+RUN  Start-Service -Name WMSVC
+
+RUN  net user iisadmin P2ssw0rd /add
+
+RUN  net localgroup administrators iisadmin /add
+
+WORKDIR .
+COPY ./tools/rtools_setup_x64.exe ./rtools_setup_x64.exe
+
+RUN $pathvargs = {c:\rtools_setup_x64.exe /install /quiet }; \
+    Invoke-Command -ScriptBlock $pathvargs
+
+#https://docs.microsoft.com/en-us/visualstudio/debugger/remote-debugging-aspnet-on-a-remote-iis-7-5-computer
+#https://docs.microsoft.com/en-us/visualstudio/debugger/remote-debugger-port-assignments
+EXPOSE 8172 4022 4020
+
+#docker build -t jony/base .
