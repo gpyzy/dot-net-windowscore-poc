@@ -15,4 +15,4 @@ EXPOSE 80
 # 1. research how to access from dockerip:80
 # 2. how to debug the website insdide the docker
 #   docker exec ssh la-app powershell
-#      curl http://localhost
+#      curl http://localhost 
