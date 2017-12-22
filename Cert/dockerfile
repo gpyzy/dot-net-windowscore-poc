@@ -4,12 +4,15 @@ SHELL ["powershell"]
 WORKDIR /inetpub/wwwroot
 COPY ./site/ .
 
+WORKDIR /Windows/System32/drivers/etc
+COPY ./hosts .
+
 EXPOSE 80
 
 
 
 #docker build -t ln/la-app .
-#docker run --name la-app -d -p 80:80 -v c:\shared:c:\shared ln/la-app
+#docker run --name la-app -d -p 80:80 -v c:\shared:c:\shared --net:host ln/la-app
 #docker inspect -f "{{ .NetworkSettings.Networks.nat.IPAddress }}" la-app
 
 # 1. research how to access from dockerip:80
