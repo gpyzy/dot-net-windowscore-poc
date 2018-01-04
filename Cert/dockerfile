@@ -5,7 +5,7 @@ WORKDIR /inetpub/wwwroot
 COPY ./site/ .
 
 WORKDIR /Windows/System32/drivers/etc
-COPY ./hosts .
+#COPY ./hosts .
 
 EXPOSE 80
 
