@@ -12,7 +12,7 @@ EXPOSE 80
 
 
 #docker build -t ln/la-app .
-#docker run --name la-app -d -p 80:80 -v c:\shared:c:\shared --net:host ln/la-app
+#docker run --name la-app -d -p 80:80 -p 4020:4020 -p 4022:4022 -p 8172:8172 -v c:\shared:c:\shared ln/la-app
 #docker inspect -f "{{ .NetworkSettings.Networks.nat.IPAddress }}" la-app
 
 # 1. research how to access from dockerip:80
